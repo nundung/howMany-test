@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { HttpModule } from '@nestjs/axios';
 import { ConfigModule } from '@nestjs/config';
-import { AuthModule } from './auth/auth.module';
+import { LolModule } from './lol/lol.module';
 
 @Module({
   imports: [
@@ -9,7 +9,7 @@ import { AuthModule } from './auth/auth.module';
       isGlobal: true, // 전역으로 사용 가능하게 설정
     }),
     HttpModule,
-    AuthModule,
+    LolModule,
   ],
 })
 export class AppModule {}
