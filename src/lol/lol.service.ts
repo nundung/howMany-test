@@ -1,18 +1,24 @@
 import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
-import { Observable, Subscriber } from 'rxjs';
+import { parse } from 'path';
+import { Observable, Subscriber, map } from 'rxjs';
+import { GetUserDto } from './dto/getUser.dto';
 
 @Injectable()
 export class LolService {
   constructor(private readonly httpService: HttpService) {}
 
-  async getUser(nickname: string): Promise<Observable<AxiosResponse<any>>> {
-    const api_key = process.env.RIOT_API_KEY;
-    const url = `https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/${nickname}?api_key=${api_key}`;
+  async getUserPuuId(
+    getUserDto: GetUserDto,
+  ): Promise<Observable<AxiosResponse<any>>> {
+    const apiKey = process.env.RIOT_API_KEY;
+    const encodedNickname = encodeURIComponent(getUserDto.nickname);
 
-    const userInfo = await this.httpService.get(url);
-    console.log(userInfo);
-    return userInfo;
+    const url = `https://asia.api.riotgames.com/riot/account/v1/accounts/by-riot-id/${encodedNickname}/${getUserDto.tag}?api_key=${apiKey}`;
+
+    return this.httpService
+      .get(url)
+      .pipe(map((response: AxiosResponse) => response.data));
   }
 }
