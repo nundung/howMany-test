@@ -1,17 +1,13 @@
 export class SummonerDto {
-  puuid: string;
-
   id: string;
+
+  puuid: string;
 
   accountId: string;
 
   profileIconId: number;
 
-  nickname: string;
-
-  tag: string;
-
-  revisionDate: Date;
+  revisionDate: string;
 
   level: number;
 }

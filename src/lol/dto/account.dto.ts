@@ -1,9 +1,9 @@
-import { IsNotEmpty } from 'class-validator';
+import { Length } from 'class-validator';
 
 export class AccountDto {
-  @IsNotEmpty()
+  @Length(3, 16)
   nickname: string;
 
-  @IsNotEmpty()
+  @Length(3, 5)
   tag: string;
 }
