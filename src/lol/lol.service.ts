@@ -9,7 +9,8 @@ import { ErrorInterceptor } from './error.interceptor';
 export class LolService {
   constructor(private readonly httpService: HttpService) {}
 
-  async getUserPuuid(accountDto: AccountDto): Promise<AccountDto> {
+  // ACCOUNT-V1 문서: Get account by riot id
+  async getUserPuuid(accountDto: AccountDto): Promise<string> {
     const apiKey = process.env.RIOT_API_KEY;
     const encodedNickname = encodeURIComponent(accountDto.nickname);
     const url = `https://asia.api.riotgames.com/riot/account/v1/accounts/by-riot-id/${encodedNickname}/${accountDto.tag}?api_key=${apiKey}`;
@@ -28,6 +29,7 @@ export class LolService {
     }
   }
 
+  // SUMMONER-V4 문서: Get a summoner by account ID
   async getSummoner(puuid) {
     const apiKey = process.env.RIOT_API_KEY;
 
