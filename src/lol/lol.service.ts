@@ -15,18 +15,12 @@ export class LolService {
     const encodedNickname = encodeURIComponent(accountDto.nickname);
     const url = `https://asia.api.riotgames.com/riot/account/v1/accounts/by-riot-id/${encodedNickname}/${accountDto.tag}?api_key=${apiKey}`;
 
-    try {
-      const response = await firstValueFrom(
-        this.httpService
-          .get(url)
-          .pipe(map((response: AxiosResponse) => response.data)),
-      );
-      return response.puuid;
-    } catch (error) {
-      if (error.response && error.response.status === HttpStatus.NOT_FOUND) {
-        throw new HttpException('일치하는 소환사 없음', HttpStatus.NOT_FOUND);
-      }
-    }
+    const response = await firstValueFrom(
+      this.httpService
+        .get(url)
+        .pipe(map((response: AxiosResponse) => response.data)),
+    );
+    return response.puuid;
   }
 
   // SUMMONER-V4 문서: Get a summoner by account ID
