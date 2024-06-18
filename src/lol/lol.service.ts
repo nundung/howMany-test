@@ -3,7 +3,6 @@ import { Injectable } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
 import { firstValueFrom, map } from 'rxjs';
 import { AccountDto } from './dto/account.dto';
-import { ErrorInterceptor } from './error.interceptor';
 
 @Injectable()
 export class LolService {
