@@ -23,7 +23,7 @@ export class LolService {
   }
 
   // SUMMONER-V4 문서: Get a summoner by account ID
-  async getSummoner(puuid): Promise<SummonerDto> {
+  async getSummoner(puuid: string): Promise<SummonerDto> {
     const url = `https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-puuid/${puuid}?api_key=${process.env.RIOT_API_KEY}`;
 
     return await firstValueFrom(
@@ -31,5 +31,30 @@ export class LolService {
         .get(url)
         .pipe(map((response: AxiosResponse) => response.data)),
     );
+  }
+
+  // MATCH-V5 문서: Get a list of match ids by puuid
+  async getMatchIds(puuid: string): Promise<string[]> {
+    const url = `https://asia.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?count=15&api_key=${process.env.RIOT_API_KEY}`;
+
+    return await firstValueFrom(
+      this.httpService
+        .get(url)
+        .pipe(map((response: AxiosResponse) => response.data)),
+    );
+  }
+
+  // MATCH-V5 문서: Get a match by match id
+  async getPlaytime(matchId: string): Promise<number> {
+    const url = `https://asia.api.riotgames.com/lol/match/v5/matches/${matchId}?api_key=${process.env.RIOT_API_KEY}`;
+
+    const response = await firstValueFrom(
+      this.httpService
+        .get(url)
+        .pipe(map((response: AxiosResponse) => response.data)),
+    );
+    const gameDuration = response.info.gameDuration;
+    console.log(gameDuration);
+    return gameDuration;
   }
 }
