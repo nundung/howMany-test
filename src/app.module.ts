@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { HttpModule } from '@nestjs/axios';
 import { ConfigModule } from '@nestjs/config';
 import { LolModule } from './lol/lol.module';
+import { SteamModule } from './steam/steam.module';
 
 @Module({
   imports: [
@@ -10,6 +11,7 @@ import { LolModule } from './lol/lol.module';
     }),
     HttpModule,
     LolModule,
+    SteamModule,
   ],
 })
 export class AppModule {}
