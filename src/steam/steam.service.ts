@@ -1,12 +1,15 @@
 import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
-import { stringify } from 'querystring';
 import { firstValueFrom, map } from 'rxjs';
 
 @Injectable()
 export class SteamService {
   constructor(private readonly httpService: HttpService) {}
+
+  async validateUser(profile: any): Promise<any> {
+    return profile;
+  }
 
   async getPlayerSummaries(id: string) {
     const url = `http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${process.env.STEAM_API_KEY}&steamids=${id}`;
